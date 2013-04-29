@@ -49,7 +49,12 @@ enum Enchants
 	ENCHANT_CHEST_EXCEPTIONAL_SPIRIT		= 4088,
 	ENCHANT_CHEST_MIGHTY_RESILIENCE			= 4077,
 
-	ENCHANT_BOOTS_ASSASSINS_STEP			= 4105,
+        ENCHANT_LEGS_CHARSCALE_LEG_ARMOR                = 56551,
+        ENCHANT_LEGS_DRAGONSCALE_LEG_ARMOR              = 56550,
+        ENCHANT_LEGS_POWERFUL_ENCHANTED_SPELLTHREAD     = 54448,
+        ENCHANT_LEGS_POWERFUL_GHOSTLY_SPELLTHREAD       = 54450,
+
+        ENCHANT_BOOTS_ASSASSINS_STEP			        = 4105,
 	ENCHANT_BOOTS_LAVAWALKER				= 4104,
 	ENCHANT_BOOTS_MASTERY					= 4094,
 	ENCHANT_BOOTS_PRECISION					= 4092,
@@ -143,13 +148,13 @@ public:
             {
 
                 case 1: // Enchant Weapon
-					player->ADD_GOSSIP_ITEM(1, "Avalanche [20g]", GOSSIP_SENDER_MAIN, 102);
-					player->ADD_GOSSIP_ITEM(1, "Elemental Slayer [20g]", GOSSIP_SENDER_MAIN, 103);
-                    player->ADD_GOSSIP_ITEM(1, "Heartsong [20g]", GOSSIP_SENDER_MAIN, 100);
-                    player->ADD_GOSSIP_ITEM(1, "Hurricane [20g]", GOSSIP_SENDER_MAIN, 101);
+					player->ADD_GOSSIP_ITEM(1, "Heartsong [20g]", GOSSIP_SENDER_MAIN, 102);
+					player->ADD_GOSSIP_ITEM(1, "Hurricane [20g]", GOSSIP_SENDER_MAIN, 103);
+                    player->ADD_GOSSIP_ITEM(1, "Avalanche [20g]", GOSSIP_SENDER_MAIN, 100);
+                    player->ADD_GOSSIP_ITEM(1, "Elemental Slayer [20g]", GOSSIP_SENDER_MAIN, 101);
                     player->ADD_GOSSIP_ITEM(1, "Landslide [20g]", GOSSIP_SENDER_MAIN, 104);
-                    player->ADD_GOSSIP_ITEM(1, "Power Torrent [20g]", GOSSIP_SENDER_MAIN, 105);
-                    player->ADD_GOSSIP_ITEM(1, "Mending [20g]", GOSSIP_SENDER_MAIN, 106);
+                    player->ADD_GOSSIP_ITEM(1, "Mending [20g]", GOSSIP_SENDER_MAIN, 105);
+                    player->ADD_GOSSIP_ITEM(1, "Power Torrent [20g]", GOSSIP_SENDER_MAIN, 106);
                     player->ADD_GOSSIP_ITEM(1, "Windwalk [20g]", GOSSIP_SENDER_MAIN, 107);
 					player->ADD_GOSSIP_ITEM(1, "<-Back", GOSSIP_SENDER_MAIN, 300);
                     player->PlayerTalkClass->SendGossipMenu(100002, creature->GetGUID());
@@ -167,13 +172,13 @@ public:
 						}
 						if (mainItem->GetProto()->InventoryType == INVTYPE_2HWEAPON)
 						{
-							player->ADD_GOSSIP_ITEM(1, "Avalanche [20g]", GOSSIP_SENDER_MAIN, 102);
-							player->ADD_GOSSIP_ITEM(1, "Elemental Slayer [20g]", GOSSIP_SENDER_MAIN, 103);
-							player->ADD_GOSSIP_ITEM(1, "Heartsong [20g]", GOSSIP_SENDER_MAIN, 100);
-							player->ADD_GOSSIP_ITEM(1, "Hurricane [20g]", GOSSIP_SENDER_MAIN, 101);
+							player->ADD_GOSSIP_ITEM(1, "Heartsong [20g]", GOSSIP_SENDER_MAIN, 102);
+							player->ADD_GOSSIP_ITEM(1, "Hurricane [20g]", GOSSIP_SENDER_MAIN, 103);
+							player->ADD_GOSSIP_ITEM(1, "Avalancher [20g]", GOSSIP_SENDER_MAIN, 100);
+							player->ADD_GOSSIP_ITEM(1, "Elemental Slayer [20g]", GOSSIP_SENDER_MAIN, 101);
 							player->ADD_GOSSIP_ITEM(1, "Landslide [20g]", GOSSIP_SENDER_MAIN, 104);
-							player->ADD_GOSSIP_ITEM(1, "Power Torrent [20g]", GOSSIP_SENDER_MAIN, 105);
-							player->ADD_GOSSIP_ITEM(1, "Mending [20g]", GOSSIP_SENDER_MAIN, 106);
+							player->ADD_GOSSIP_ITEM(1, "Mending [20g]", GOSSIP_SENDER_MAIN, 105);
+							player->ADD_GOSSIP_ITEM(1, "Power Torrent [20g]", GOSSIP_SENDER_MAIN, 106);
 							player->ADD_GOSSIP_ITEM(1, "Windwalk [20g]", GOSSIP_SENDER_MAIN, 107);
 							player->ADD_GOSSIP_ITEM(1, "Mighty Agility [30g]", GOSSIP_SENDER_MAIN, 108);
 							player->ADD_GOSSIP_ITEM(1, "<-Back", GOSSIP_SENDER_MAIN, 300);
@@ -269,6 +274,15 @@ public:
 					player->ADD_GOSSIP_ITEM(1, "Greater Mastery [15g]", GOSSIP_SENDER_MAIN, 136);
 					player->ADD_GOSSIP_ITEM(1, "Haste [15g]", GOSSIP_SENDER_MAIN, 137);
 					player->ADD_GOSSIP_ITEM(1, "Mighty Strength [15g]", GOSSIP_SENDER_MAIN, 138);
+					player->ADD_GOSSIP_ITEM(1, "<-Back", GOSSIP_SENDER_MAIN, 300);
+					player->PlayerTalkClass->SendGossipMenu(100010, creature->GetGUID());
+					return true;
+					break;
+				case 10: //Enchant Legs
+					player->ADD_GOSSIP_ITEM(1, "Charscale Leg Armor [15g]", GOSSIP_SENDER_MAIN, 135);
+					player->ADD_GOSSIP_ITEM(1, "Dragonscale Leg Armor [15g]", GOSSIP_SENDER_MAIN, 136);
+					player->ADD_GOSSIP_ITEM(1, "Powerful Enchanted Spellthread [15g]", GOSSIP_SENDER_MAIN, 137);
+					player->ADD_GOSSIP_ITEM(1, "Powerful Ghostly Spellthread [15g]", GOSSIP_SENDER_MAIN, 138);
 					player->ADD_GOSSIP_ITEM(1, "<-Back", GOSSIP_SENDER_MAIN, 300);
 					player->PlayerTalkClass->SendGossipMenu(100010, creature->GetGUID());
 					return true;
