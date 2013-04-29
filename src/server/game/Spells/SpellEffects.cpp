@@ -5184,7 +5184,7 @@ void Spell::EffectWeaponDmg (SpellEffIndex /*effIndex*/)
        {
         if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_DAGGER)
         {
-         float totalDamagePercentMod = 2.10f;  // Damage done with daggers multiply for 210% 
+         float totalDamagePercentMod = 1.90f;  // Damage done with daggers multiply for 210% 
          
         }
        }
@@ -5334,7 +5334,7 @@ void Spell::SpellDamageWeaponDmg (SpellEffIndex effIndex)
        {
         if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_DAGGER)
         {
-         totalDamagePercentMod *= 2.10;  // Damage done with daggers multiply for 210% 
+         totalDamagePercentMod *= 1.90;  // Damage done with daggers multiply for 210% 
          
         }
        }
