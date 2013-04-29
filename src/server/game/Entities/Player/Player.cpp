@@ -22,6 +22,7 @@
 
 #include "gamePCH.h"
 #include "AnticheatMgr.h"
+#include "../../../scripts/Custom/Transmogrification.h"
 #include "Common.h"
 #include "Object.h"
 #include "Language.h"
