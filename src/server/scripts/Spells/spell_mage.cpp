@@ -36,6 +36,7 @@ enum MageSpells
     SPELL_MAGE_DRAGONHAWK_FORM                   = 32818,
     SPELL_MAGE_WORGEN_FORM                       = 32819,
     SPELL_MAGE_SHEEP_FORM                        = 32820,
+	SPELL_MAGE_POLYMORPH                         = 56375,
     SPELL_MAGE_GLYPH_OF_ETERNAL_WATER            = 70937,
     SPELL_MAGE_SUMMON_WATER_ELEMENTAL_PERMANENT  = 70908,
     SPELL_MAGE_SUMMON_WATER_ELEMENTAL_TEMPORARY  = 70907,
@@ -88,54 +89,43 @@ class spell_mage_cold_snap : public SpellScriptLoader
         }
 };
 
-class spell_mage_polymorph_cast_visual : public SpellScriptLoader
+class spell_mage_polymorph_cast_visual: public SpellScriptLoader 
 {
-    public:
-        spell_mage_polymorph_cast_visual() : SpellScriptLoader("spell_mage_polymorph_visual") { }
+public:
+ spell_mage_polymorph_cast_visual() : SpellScriptLoader("spell_mage_polymorph_visual") 
+    { }
 
-        class spell_mage_polymorph_cast_visual_SpellScript : public SpellScript
+ class spell_mage_polymorph_cast_visual_SpellScript: public SpellScript 
+    {
+  PrepareSpellScript(spell_mage_polymorph_cast_visual_SpellScript)
+
+        void HandleDummy(SpellEffIndex /*effIndex*/)
         {
-            PrepareSpellScript(spell_mage_polymorph_cast_visual_SpellScript)
-            static const uint32 spell_list[6];
-
-            bool Validate(SpellEntry const * /*spellEntry*/)
+   if (Unit *unitTarget = GetHitUnit())
             {
-                // check if spell ids exist in dbc
-                for (int i = 0; i < 6; i++)
-                    if (!sSpellStore.LookupEntry(spell_list[i]))
-                        return false;
-                return true;
+                // Glyph of Polymorph
+                if (GetCaster()->HasAura(56375))
+                {
+                    unitTarget->RemoveAurasByType(SPELL_AURA_PERIODIC_DAMAGE, 0, unitTarget->GetAura(32409)); // SW:D shall not be removed.
+                    unitTarget->RemoveAurasByType(SPELL_AURA_PERIODIC_DAMAGE_PERCENT);
+                    unitTarget->RemoveAurasByType(SPELL_AURA_PERIODIC_LEECH);
+                }
             }
 
-            void HandleDummy(SpellEffIndex /*effIndex*/)
-            {
-                if (Unit *unitTarget = GetHitUnit())
-                    if (unitTarget->GetTypeId() == TYPEID_UNIT)
-                        unitTarget->CastSpell(unitTarget, spell_list[urand(0, 5)], true);
-            }
+  }
 
-            void Register()
-            {
-                // add dummy effect spell handler to Polymorph visual
-                OnEffect += SpellEffectFn(spell_mage_polymorph_cast_visual_SpellScript::HandleDummy, EFFECT_0, SPELL_EFFECT_DUMMY);
-            }
-        };
-
-        SpellScript* GetSpellScript() const
+  void Register()
         {
-            return new spell_mage_polymorph_cast_visual_SpellScript();
-        }
+   OnEffect += SpellEffectFn(spell_mage_polymorph_cast_visual_SpellScript::HandleDummy, EFFECT_0, SPELL_EFFECT_APPLY_AURA);
+  }
+ };
+
+ SpellScript* GetSpellScript() const 
+    {
+  return new spell_mage_polymorph_cast_visual_SpellScript();
+ }
 };
 
-const uint32 spell_mage_polymorph_cast_visual::spell_mage_polymorph_cast_visual_SpellScript::spell_list[6] =
-{
-    SPELL_MAGE_SQUIRREL_FORM,
-    SPELL_MAGE_GIRAFFE_FORM,
-    SPELL_MAGE_SERPENT_FORM,
-    SPELL_MAGE_DRAGONHAWK_FORM,
-    SPELL_MAGE_WORGEN_FORM,
-    SPELL_MAGE_SHEEP_FORM
-};
 
 // Frost Warding
 class spell_mage_frost_warding_trigger : public SpellScriptLoader
@@ -401,10 +391,10 @@ public:
 void AddSC_mage_spell_scripts()
 {
     new spell_mage_cold_snap();
+	new spell_mage_polymorph_cast_visual();
     new spell_mage_frost_warding_trigger();
     new spell_mage_incanters_absorbtion_absorb();
     new spell_mage_incanters_absorbtion_manashield();
     new spell_mage_pyroblast();
-    new spell_mage_polymorph_cast_visual();
 	new spell_mage_cauterize();
 }
