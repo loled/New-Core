@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2010 - 2013 ProjectSkyfire	<http://www.projectskyfire.org/>
+* Copyright (C) 2010 - 2013 ProjectSkyfire    <http://www.projectskyfire.org/>
 *
 * Copyright (C) 2011 - 2013 ArkCORE			<http://www.arkania.net/>
 * Copyright (C) 2008 - 2013 TrinityCore		<http://www.trinitycore.org/>
@@ -36,7 +36,9 @@ enum WarlockSpells
     WARLOCK_DEMONIC_EMPOWERMENT_FELGUARD    = 54508,
     WARLOCK_DEMONIC_EMPOWERMENT_FELHUNTER   = 54509,
     WARLOCK_DEMONIC_EMPOWERMENT_IMP         = 54444,
+	WARLOCK_SPELL_WARLOCK_SEDUCTION         = 56250,
     WARLOCK_DARK_INTENT_EFFECT              = 85767,
+
     //WARLOCK_IMPROVED_HEALTHSTONE_R1         = 18692,
     //WARLOCK_IMPROVED_HEALTHSTONE_R2         = 18693,
     WARLOCK_FELHUNTER_SHADOWBITE_R1         = 54049,
@@ -114,6 +116,46 @@ public:
     {
         return new spell_warl_demonic_empowerment_SpellScript();
     }
+};
+
+class spell_warlock_seduction : public SpellScriptLoader 
+{
+public:
+ spell_warlock_seduction() : SpellScriptLoader("spell_warlock_seduction") 
+    { }
+
+ class spell_warlock_seduction_SpellScript: public SpellScript 
+    {
+  PrepareSpellScript(spell_warlock_seduction_SpellScript)
+
+        void HandleDummy(SpellEffIndex /*effIndex*/)
+        {
+   if (Unit *unitTarget = GetHitUnit())
+            {
+                // Glyph of Seducation
+                if (GetCaster()->GetOwner())
+                {
+                    if (GetCaster()->GetOwner()->HasAura(56250))
+                    {
+                        unitTarget->RemoveAurasByType(SPELL_AURA_PERIODIC_DAMAGE, 0, unitTarget->GetAura(32409)); // SW:D shall not be removed.
+                        unitTarget->RemoveAurasByType(SPELL_AURA_PERIODIC_DAMAGE_PERCENT);
+                        unitTarget->RemoveAurasByType(SPELL_AURA_PERIODIC_LEECH);
+                    }
+                }
+            }
+
+  }
+
+  void Register()
+        {
+   OnEffect += SpellEffectFn(spell_warlock_seduction_SpellScript::HandleDummy, EFFECT_0, SPELL_EFFECT_APPLY_AURA);
+  }
+ };
+
+ SpellScript* GetSpellScript() const 
+    {
+  return new spell_warlock_seduction_SpellScript();
+ }
 };
 
 // 47422 Everlasting Affliction
@@ -509,6 +551,7 @@ public:
 void AddSC_warlock_spell_scripts()
 {
     new spell_warl_demonic_empowerment();
+	new spell_warlock_seduction();
     new spell_warl_everlasting_affliction();
     new spell_warl_create_healthstone();
     new spell_warl_drain_soul();
