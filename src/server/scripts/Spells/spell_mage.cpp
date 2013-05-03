@@ -36,12 +36,12 @@ enum MageSpells
     SPELL_MAGE_DRAGONHAWK_FORM                   = 32818,
     SPELL_MAGE_WORGEN_FORM                       = 32819,
     SPELL_MAGE_SHEEP_FORM                        = 32820,
-	SPELL_MAGE_POLYMORPH                         = 56375,
+    SPELL_MAGE_POLYMORPH                         = 56375,
     SPELL_MAGE_GLYPH_OF_ETERNAL_WATER            = 70937,
     SPELL_MAGE_SUMMON_WATER_ELEMENTAL_PERMANENT  = 70908,
     SPELL_MAGE_SUMMON_WATER_ELEMENTAL_TEMPORARY  = 70907,
     SPELL_MAGE_GLYPH_OF_BLAST_WAVE               = 62126,
-	SPELL_MAGE_CAUTERIZE_DAMAGE                  = 87023
+    SPELL_MAGE_CAUTERIZE_DAMAGE                  = 87023
 };
 
 class spell_mage_cold_snap : public SpellScriptLoader
