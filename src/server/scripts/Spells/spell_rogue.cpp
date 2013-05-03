@@ -33,6 +33,7 @@ enum RogueSpells
 	ROGUE_SPELL_SHIV_TRIGGERED       = 5940,
 	ROGUE_SPELL_GLYPH_OF_PREPARATION = 56819,
 	ROGUE_SPELL_PREY_ON_THE_WEAK     = 58670,
+	ROGUE_SPELL_ROGUE_BLIND          = 91299
 };
 
 // Cheat Death
@@ -104,6 +105,43 @@ public:
     {
         return new spell_rog_cheat_death_AuraScript();
     }
+};
+
+class spell_rogue_blind : public SpellScriptLoader 
+{
+public:
+ spell_rogue_blind() : SpellScriptLoader("spell_rogue_blind") 
+    { }
+
+ class spell_rogue_blind_SpellScript: public SpellScript 
+    {
+  PrepareSpellScript(spell_rogue_blind_SpellScript)
+
+        void HandleDummy(SpellEffIndex /*effIndex*/)
+        {
+   if (Unit *unitTarget = GetHitUnit())
+            {
+                // Glyph of Blind
+                if (GetCaster()->HasAura(91299))
+                {
+                    unitTarget->RemoveAurasByType(SPELL_AURA_PERIODIC_DAMAGE, 0, unitTarget->GetAura(32409)); // SW:D shall not be removed.
+                    unitTarget->RemoveAurasByType(SPELL_AURA_PERIODIC_DAMAGE_PERCENT);
+                    unitTarget->RemoveAurasByType(SPELL_AURA_PERIODIC_LEECH);
+                }
+            }
+
+  }
+
+  void Register()
+        {
+   OnEffect += SpellEffectFn(spell_rogue_blind_SpellScript::HandleDummy, EFFECT_0, SPELL_EFFECT_APPLY_AURA);
+  }
+ };
+
+ SpellScript* GetSpellScript() const 
+    {
+  return new spell_rogue_blind_SpellScript();
+ }
 };
 
 // 31130 - Nerves of Steel
@@ -400,6 +438,7 @@ public:
 void AddSC_rogue_spell_scripts ()
 {
     new spell_rog_cheat_death();
+    new spell_rogue_blind();
     new spell_rog_nerves_of_steel();
     new spell_rog_preparation();
     new spell_rog_prey_on_the_weak();
