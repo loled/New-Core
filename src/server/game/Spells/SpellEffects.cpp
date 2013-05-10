@@ -612,7 +612,7 @@ void Spell::SpellDamageSchoolDmg (SpellEffIndex effIndex)
                         bonus_rage = 10;
 
                     damage += uint32(ap * 0.874 * 100 / 100 - 1);
-                    m_caster->SetPower(POWER_RAGE, 0 + bonus_rage);
+                    m_caster->SetPower(POWER_RAGE, (power - 10) + bonus_rage);
                 }
             }
             // Heroic Strike
@@ -1052,6 +1052,27 @@ void Spell::SpellDamageSchoolDmg (SpellEffIndex effIndex)
         }
         case SPELLFAMILY_PALADIN:
         {
+			switch (m_spellInfo->Id)
+	{
+	case 35395: 
+		 //Crusader Strike
+		if(m_caster->GetTypeId() == TYPEID_PLAYER)
+      {
+       if(Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
+       {
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_AXE)
+		{
+		float totalDamagePercentMod = 1.85f; // 375%
+        }
+       }
+      } else 
+      {      
+       float totalDamagePercentMod = 1.83f;  // Damage done without daggers multiply for 373%
+       // TO_DO FIRST_WEAPON Improvement
+      }
+      
+      break;
+    }
             // Hammer of the Righteous
             if (m_spellInfo->SpellFamilyFlags[1] & 0x00040000)
             {
@@ -2190,6 +2211,27 @@ void Spell::EffectDummy (SpellEffIndex effIndex)
     }
     case SPELLFAMILY_PALADIN:
     {
+		switch (m_spellInfo->Id)
+	{
+	case 35395: 
+		 //Crusader Strike
+		if(m_caster->GetTypeId() == TYPEID_PLAYER)
+      {
+       if(Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
+       {
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_AXE)
+		{
+		float totalDamagePercentMod = 1.85f; // 375%
+        }
+       }
+      } else 
+      {      
+       float totalDamagePercentMod = 1.83f;  // Damage done without daggers multiply for 373%
+       // TO_DO FIRST_WEAPON Improvement
+      }
+      
+      break;
+    }
         // Divine Storm
         if (m_spellInfo->SpellFamilyFlags[1] & SPELLFAMILYFLAG1_PALADIN_DIVINESTORM && effIndex == 1)
         {
@@ -2330,12 +2372,12 @@ void Spell::EffectDummy (SpellEffIndex effIndex)
         if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_MACE)
 	    if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_FIST)
 		{
-		float totalDamagePercentMod = 2.10f; // 210
+		float totalDamagePercentMod = 1.70f; // 210%
         }
        }
       } else 
       {      
-       float totalDamagePercentMod = 2.0f;  // Damage done without daggers multiply for 200%
+       float totalDamagePercentMod = 1.69f;  // Damage done without daggers multiply for 210%
        // To do FIRST_WEAPON
       }
       
@@ -2374,12 +2416,12 @@ void Spell::EffectDummy (SpellEffIndex effIndex)
         if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_MACE)
 		if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_FIST)
 		{
-		float totalDamagePercentMod = 2.10f; // 210%
+		float totalDamagePercentMod = 1.67f; // 210%
         }
        }
       } else 
       {      
-       float totalDamagePercentMod = 2.0f;  // Damage done without daggers multiply for 200%
+       float totalDamagePercentMod = 1.65f;  // Damage done without daggers multiply for 210%
        // To do FIRST_WEAPON, IMPROVEMENT
       }
       
@@ -5174,6 +5216,27 @@ void Spell::EffectWeaponDmg (SpellEffIndex /*effIndex*/)
         m_caster->CastSpell(m_caster, 85705, true);
         break;
     }
+	switch (m_spellInfo->Id)
+	{
+	case 35395: 
+		 //Crusader Strike
+		if(m_caster->GetTypeId() == TYPEID_PLAYER)
+      {
+       if(Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
+       {
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_AXE)
+		{
+		float totalDamagePercentMod = 1.85f; // 375%
+        }
+       }
+      } else 
+      {      
+       float totalDamagePercentMod = 1.83f;  // Damage done without daggers multiply for 373%
+       // TO_DO FIRST_WEAPON Improvement
+      }
+      
+      break;
+    }
     switch (m_spellInfo->Id)
 	{
 	case 8676:
@@ -5184,13 +5247,13 @@ void Spell::EffectWeaponDmg (SpellEffIndex /*effIndex*/)
        {
         if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_DAGGER)
         {
-         float totalDamagePercentMod = 1.90f;  // Damage done with daggers multiply for 210% 
+         float totalDamagePercentMod = 1.66f;  // Damage done with daggers multiply for 210% 
          
         }
        }
       } else 
       {      
-       float totalDamagePercentMod = 1.90f;  // Damage done without daggers multiply for 190%
+       float totalDamagePercentMod = 1.66f;  // Damage done without daggers multiply for 190%
        
       }
       
@@ -5207,12 +5270,12 @@ void Spell::EffectWeaponDmg (SpellEffIndex /*effIndex*/)
         if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_MACE)
 		if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_FIST)
 		{
-		float totalDamagePercentMod = 2.10f; // 210%
+		float totalDamagePercentMod = 1.67f; // 210%
         }
        }
       } else 
       {      
-       float totalDamagePercentMod = 2.0f;  // Damage done without maces multiply for 200%
+       float totalDamagePercentMod = 1.65f;  // Damage done without maces multiply for 210%
        // To do FIRST_WEAPONS IMPROVEMENT
       }
       
@@ -5229,13 +5292,36 @@ void Spell::EffectWeaponDmg (SpellEffIndex /*effIndex*/)
         if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_MACE)
         if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_FIST)
 		{
-		float totalDamagePercentMod = 2.10f; // 210%
+		float totalDamagePercentMod = 1.70f; // 210%
         }
        }
       } else 
       {      
-       float totalDamagePercentMod = 2.0f;  // Damage done without daggers multiply for 200%
+       float totalDamagePercentMod = 1.69f;  // Damage done without daggers multiply for 210%
        // TO_DO FIRST_WEAPONS IMPROVEMENT
+      }
+      
+      break;
+    }
+	switch (m_spellInfo->Id)
+	{
+	case 49143: 
+		 //Frost Strike
+		if(m_caster->GetTypeId() == TYPEID_PLAYER)
+      {
+       if(Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
+       {
+        if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_FIST)
+		if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_MACE)
+		if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_FIST)
+		{
+		float totalDamagePercentMod = 1.75f; // 210%
+        }
+       }
+      } else 
+      {      
+       float totalDamagePercentMod = 1.73f;  // Damage done without daggers multiply for 210%
+       // TO_DO FIRST_WEAPON Improvement
       }
       
       break;
@@ -5334,13 +5420,13 @@ void Spell::SpellDamageWeaponDmg (SpellEffIndex effIndex)
        {
         if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_DAGGER)
         {
-         totalDamagePercentMod *= 1.90;  // Damage done with daggers multiply for 210% 
+         totalDamagePercentMod *= 1.66;  // Damage done with daggers multiply for 210% 
          
         }
        }
       } else 
       {      
-       totalDamagePercentMod *= 1.90f;  // Damage done without daggers multiply for 190%
+       totalDamagePercentMod *= 1.66f;  // Damage done without daggers multiply for 190%
        
       }
       
@@ -5355,11 +5441,11 @@ void Spell::SpellDamageWeaponDmg (SpellEffIndex effIndex)
                 if (m_caster->GetTypeId() == TYPEID_PLAYER)
                     m_caster->ToPlayer()->AddComboPoints(unitTarget, 1, this);
             }
-            // 50% more damage with daggers
+            // 550% more damage with daggers
             if (m_caster->GetTypeId() == TYPEID_PLAYER)
                 if (Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
                     if (item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_DAGGER)
-                        totalDamagePercentMod *= 1.5f;
+                        totalDamagePercentMod *= 1.66f;
         }
         // Mutilate (for each hand)
         else if (m_spellInfo->SpellFamilyFlags[1] & 0x6)
@@ -5389,6 +5475,43 @@ void Spell::SpellDamageWeaponDmg (SpellEffIndex effIndex)
     }
     case SPELLFAMILY_PALADIN:
     {
+		switch (m_spellInfo->Id)
+	{
+	case 35395: 
+		 //Crusader Strike
+		if(m_caster->GetTypeId() == TYPEID_PLAYER)
+      {
+       if(Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
+       {
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_AXE)
+		{
+		float totalDamagePercentMod = 1.85f; // 375%
+        }
+       }
+      } else 
+      {      
+       float totalDamagePercentMod = 1.83f;  // Damage done without daggers multiply for 373%
+       // TO_DO FIRST_WEAPON Improvement
+      }
+      
+      break;
+    }
+		// 210% more damage with MACE
+            if (m_caster->GetTypeId() == TYPEID_PLAYER)
+                if (Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_SWORD2)
+                        totalDamagePercentMod *= 1.85f; // 310% more with mace
+			// 210% more damage with MACE
+            if (m_caster->GetTypeId() == TYPEID_PLAYER)
+                if (Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_AXE2)
+                        totalDamagePercentMod *= 1.85f; // 310% more with mace
+			// 210% more damage with MACE
+            if (m_caster->GetTypeId() == TYPEID_PLAYER)
+                if (Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_MACE2)
+                        totalDamagePercentMod *= 1.85f; // 310% more with mace
+			// 210% more damage with FIST WEAPON
         //Templar's Verdict
         if (m_spellInfo->Id == 85256)
         {
@@ -5424,12 +5547,12 @@ void Spell::SpellDamageWeaponDmg (SpellEffIndex effIndex)
         if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_MACE)
 		if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_FIST)
 		{
-		float totalDamagePercentMod = 2.10f; // 210%
+		float totalDamagePercentMod = 1.70f; // 210%
         }
        }
       } else 
       {      
-       float totalDamagePercentMod = 2.0f;  // Damage done without daggers multiply for 200%
+       float totalDamagePercentMod = 1.69f;  // Damage done without daggers multiply for 210%
        // TO_DO FIRST_WEAPON Improvement
       }
       
@@ -5443,15 +5566,16 @@ void Spell::SpellDamageWeaponDmg (SpellEffIndex effIndex)
       {
        if(Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
        {
-        if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_MACE)
+        if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_FIST)
+		if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_MACE)
 		if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_FIST)
 		{
-		float totalDamagePercentMod = 2.10f; // 210%
+		float totalDamagePercentMod = 1.67f; // 210%
         }
        }
       } else 
       {      
-       float totalDamagePercentMod = 2.0f;  // Damage done without daggers multiply for 200%
+       float totalDamagePercentMod = 1.65f;  // Damage done without daggers multiply for 210%
        // TO_DO FIRST_WEAPON Improvement
       }
       
@@ -5461,7 +5585,12 @@ void Spell::SpellDamageWeaponDmg (SpellEffIndex effIndex)
             if (m_caster->GetTypeId() == TYPEID_PLAYER)
                 if (Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
                     if (item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_MACE)
-                        totalDamagePercentMod *= 2.10f; // 210% more with mace
+                        totalDamagePercentMod *= 1.70f; // 210% more with mace
+			// 210% more damage with FIST WEAPON
+            if (m_caster->GetTypeId() == TYPEID_PLAYER)
+                if (Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
+                    if (item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_FIST)
+                        totalDamagePercentMod *= 1.70f; // 210% more with Fist Weapon
         // Skyshatter Harness item set bonus
         // Stormstrike
         if (AuraEffect * aurEff = m_caster->IsScriptOverriden(m_spellInfo, 5634))
@@ -5558,6 +5687,40 @@ void Spell::SpellDamageWeaponDmg (SpellEffIndex effIndex)
     }
     case SPELLFAMILY_DEATHKNIGHT:
     {
+		switch (m_spellInfo->Id)
+	{
+	case 49143: 
+		 //Frost Strike
+		if(m_caster->GetTypeId() == TYPEID_PLAYER)
+      {
+       if(Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
+       {
+        if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_FIST)
+		if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_MACE)
+		if(item->GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_FIST)
+		{
+		float totalDamagePercentMod = 1.75f; // 210%
+        }
+       }
+      } else 
+      {      
+       float totalDamagePercentMod = 1.73f;  // Damage done without daggers multiply for 210%
+       // TO_DO FIRST_WEAPON Improvement
+      }
+      
+      break;
+    }
+		// 210% more damage with MACE
+            if (m_caster->GetTypeId() == TYPEID_PLAYER)
+                if (Item* item = m_caster->ToPlayer()->GetWeaponForAttack(m_attackType, true))
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_AXE)
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_AXE2)
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_SWORD)
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_SWORD2)
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_MACE)
+                    if (item->GetProto()->SubClass ==  ITEM_SUBCLASS_WEAPON_MACE2)
+                        totalDamagePercentMod *= 1.75f; // 210% more with mace
+			// 210% more damage with FIST WEAPON
         // Plague Strike
         if (m_spellInfo->SpellFamilyFlags[EFFECT_0] & 0x1)
         {
